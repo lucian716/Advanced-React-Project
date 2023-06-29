@@ -99,9 +99,9 @@ const Portfolio = () => {
         onRequestClose={() => setSelectedImage(null)}
         style={{
           content: {
-            width: "600", 
-            height: "300", 
-            margin: "auto", 
+            width: "600",
+            height: "300",
+            margin: "auto",
           },
         }}
       >
@@ -110,16 +110,16 @@ const Portfolio = () => {
             <img
               src={selectedImage.download_url}
               alt={`image_${selectedImage.id}`}
-              height="50%"
               width="100%"
-              text-align="center"
-              justify-content= "center"
+              height="800px"
+              text-align="center !important"
+              justify-content="center !important"
             />
           </div>
         )}
       </Modal>
     </div>
-  )
+  );
 }
 
 
