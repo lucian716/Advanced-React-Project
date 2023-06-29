@@ -1,7 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import "./App.css";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import axios from "axios";
+import Modal from "react-modal";
+
+const Header = () => (
+  <header>
+    <h1>AI art Gallery</h1>
+  </header>
+);
 
 const App = () => (
   <Router>
@@ -18,11 +24,6 @@ const App = () => (
       <Footer />
     </div>
   </Router>
-);
-const Header = () => (
-  <header>
-    <h1>AI art Gallery</h1>
-  </header>
 );
 
 const Menu = () => (
@@ -59,6 +60,8 @@ const Home = () => (
 
 const Portfolio = () => {
   const [galleryArray, updateGalleryArray] = useState([]);
+  const [selectedImage, setSelectedImage] = useState(null);
+
   useEffect(() => {
     axios
       .get("https://picsum.photos/v2/list")
@@ -70,29 +73,58 @@ const Portfolio = () => {
       });
   }, []);
 
+  Modal.setAppElement("#root");
+
   return (
     <div className="App">
-      <nav class="navbar navbar-dark bg-dark">
-        <div className="m-auto text-light">Art Gallery Portfolio</div>
-      </nav>
       <div className="row">
         {galleryArray.map((galleryArrayItem, index) => {
           console.log(galleryArrayItem.url, index);
           return (
-            <div key={index} className="col-sm-4 col-md-4 col-4 p-1">
+            <div key={index} className="col-sm-4 col-md-4 col-4 p-3">
               <img
                 src={galleryArrayItem.download_url}
                 alt={`image_${galleryArrayItem.id}`}
                 height="300"
                 width="600"
+                onClick={() => setSelectedImage(galleryArrayItem)}
               />
             </div>
           );
         })}
       </div>
+
+      <Modal
+        isOpen={selectedImage !== null}
+        onRequestClose={() => setSelectedImage(null)}
+        style={{
+          content: {
+            width: "600", 
+            height: "300", 
+            margin: "auto", 
+          },
+        }}
+      >
+        {selectedImage && (
+          <div>
+            <img
+              src={selectedImage.download_url}
+              alt={`image_${selectedImage.id}`}
+              height="50%"
+              width="100%"
+              text-align="center"
+              justify-content= "center"
+            />
+          </div>
+        )}
+      </Modal>
     </div>
-  );
+  )
 }
+
+
+
+
 
 
 const Artist = () => {
