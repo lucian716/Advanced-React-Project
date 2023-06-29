@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
 
-function App() {
+function Portfolio() {
   const [galleryArray, updateGalleryArray] = useState([]);
   useEffect(() => {
     axios
-      .get("https://picsum.photos/v2/list")
+      .get("https://picsum.photos/id/27/")
       .then(function (response) {
         updateGalleryArray(response.data);
       })
@@ -21,7 +21,7 @@ function App() {
         <div className="m-auto text-light">Art Gallery Portfolio</div>
       </nav>
       <div className="row">
-        {galleryArray.map((galleryArrayItem, index) => {
+              {galleryArray.map((galleryArrayItem, index) => {
           console.log(galleryArrayItem.url, index);
           return (
             <div key={index} className="col-sm-4 col-md-4 col-4 p-1">
@@ -38,5 +38,4 @@ function App() {
     </div>
   );
 }
-
-export default App;
+export default Portfolio;

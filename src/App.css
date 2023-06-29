@@ -1,11 +1,186 @@
-body {
-  background: #f4f4f4;
+
+/* body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+} */
+
+/* body {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: 100vh;
 }
 
-.banner {
-  background: #a770ef;
-  background: -webkit-linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);
-  background: linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);
+.app-container {
+  grid-row: 1 / -1;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+}
+
+header h1 {
+  margin: 0;
+}
+
+nav {
+  background-color: #f5f5f5;
+  padding: 10px;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 10px;
+}
+
+nav ul li a {
+  color: #333;
+  text-decoration: none;
+}
+
+main {
+  padding: 20px;
+}
+
+main h2 {
+  margin: 0;
+}
+
+main img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+main h3 {
+  margin: 0;
+}
+
+main p {
+  margin: 0;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+footer p {
+  margin: 0;
+}
+
+.artist-image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+ */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url("./backgroundGallery.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.app-container {
+  flex: 1;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+}
+
+header h1 {
+  margin: 0;
+}
+
+nav {
+  background-color: #f5f5f5;
+  padding: 10px;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 10px;
+}
+
+nav ul li a {
+  color: #333;
+  text-decoration: none;
+}
+
+/* main {
+  padding: 220px;
+  background-image: url("./mainimg.jpg");
+} */
+
+main h2 {
+  margin: 0;
+  color: green;
+  font-size: xx-large;
+}
+
+main img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+main h3 {
+  margin: 0;
+}
+
+main p {
+  margin: 0;
+  font-size: x-large;
+  color: red;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+footer p {
+  margin: 0;
+}
+
+.artist-image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
 }
 
 .row{
