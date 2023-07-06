@@ -5,7 +5,6 @@ import {
   Route,
   Link,
   useLocation,
-  useParams,
 } from "react-router-dom";
 import axios from "axios";
 import Modal from "react-modal";
@@ -25,7 +24,7 @@ const Header = ({ searchTerm, handleSearch }) => (
 );
 
 const App = () => {
-  const [galleryArray, updateGalleryArray] = useState([]);
+  const [galleryArray, setGalleryArray] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -33,7 +32,7 @@ const App = () => {
     axios
       .get("https://picsum.photos/v2/list")
       .then(function (response) {
-        updateGalleryArray(response.data);
+        setGalleryArray(response.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -153,7 +152,6 @@ const Portfolio = ({ galleryArray, addToCart }) => {
                     <p className="portfolio-item-price">
                       Price: ${randomPrice}
                     </p>{" "}
-                    {/* Use the generated random price */}
                     <button
                       className="portfolio-item-add-button"
                       onClick={() => addToCart(galleryArrayItem)}
@@ -258,8 +256,10 @@ const Cart = ({ cartItems, removeFromCart }) => {
       return prevQuantities;
     });
   };
+
   const location = useLocation();
   const { pathname } = location;
+
   return (
     <div className="main">
       <h2>Cart</h2>
@@ -305,11 +305,11 @@ const Cart = ({ cartItems, removeFromCart }) => {
       )}
       <div className="cart-total">
         <p>Total: ${totalCost}</p>
-        {/* <Link to="/checkout" totalCost={totalCost}>
-          Proceed to Checkout
-        </Link> */}
         <Link
-          to={{ pathname: "/checkout", state: { totalCost }, search: pathname }}
+          to={{
+            pathname: "/checkout",
+            search: `?totalCost=${totalCost}`,
+          }}
         >
           Proceed to Checkout
         </Link>
@@ -320,7 +320,8 @@ const Cart = ({ cartItems, removeFromCart }) => {
 
 const Checkout = () => {
   const location = useLocation();
-  const { totalCost } = location.state || {};
+  const searchParams = new URLSearchParams(location.search);
+  const totalCost = searchParams.get("totalCost") || 0;
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -338,102 +339,68 @@ const Checkout = () => {
   };
 
   useEffect(() => {
-    Modal.setAppElement("body");
+    Modal.setAppElement("#root");
   }, []);
-
-  const handlePaypalScriptLoad = () => {
-    loadScript({
-      "client-id": "YOUR_PAYPAL_CLIENT_ID",
-    });
-  };
 
   return (
     <div className="checkout">
       <h2>Checkout</h2>
-      <div className="checkout-details">
-        <div className="form-container">
-          <h3>Enter Your Details:</h3>
-          <form onSubmit={handleSubmit} className="mx-auto">
-            <div className="form-group">
-              <label>Name:</label>
-              <input
-                type="text"
-                className="form-control"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Address:</label>
-              <input
-                type="text"
-                className="form-control"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Phone Number:</label>
-              <input
-                type="tel"
-                className="form-control"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                required
-              />
-            </div>
-            <button type="submit" className="btn btn-primary">
-              Submit
-            </button>
-          </form>
-        </div>
-        <div className="payment-container">
-          <h3>Payment Details:</h3>
-          <div id="paypal-button-container"></div>
-        </div>
-      </div>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Name:
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </label>
+        <label>
+          Address:
+          <input
+            type="text"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+        </label>
+        <label>
+          Phone Number:
+          <input
+            type="text"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+          />
+        </label>
+        <button className="submit-button" type="submit">
+          Submit
+        </button>
+      </form>
       {showThankYouMessage && (
-        <div className="thank-you-message">
+        <>
+          <p>{name}, Thank you for your order!</p>
+          <p>Name: {name}</p>
+          <p>Address: {address}</p>
+          <p>Phone Number: {phoneNumber}</p>
+          <p>Total Cost: ${totalCost}</p>
           <p>
-            Your payment has been received. Your order will be processed and
-            delivered to you shortly.
+            You will receive soon an email with the details of the purchase.
           </p>
-          <p>
-            Name: {name}, Address: {address}, Phone Number: {phoneNumber}
-          </p>
-          <p>Total: $ 1345 CAD</p>
-          <p></p>
-        </div>
+        </>
       )}
-      <Modal
-        isOpen={true}
-        contentLabel="Thank You"
-        className="modal"
-        overlayClassName="overlay"
-      >
-        <h2>Thank You for Your Purchase!</h2>
-        <p>
-          Your payment of $XXX has been received. Your order will be processed
-          and delivered to you shortly.
-        </p>
-      </Modal>
     </div>
   );
 };
 
-const CheckoutComplete = () => (
-  <div className="checkout-complete">
-    <h2>Checkout Complete</h2>
-    <p>Thank you for your purchase!</p>
-  </div>
-);
-
 const Footer = () => (
   <footer>
-    <p>AI Art Gallery &copy; 2023</p>
+    <p>© 2023 AI Art Gallery. All rights reserved.</p>
   </footer>
+);
+
+const CheckoutComplete = () => (
+  <div className="main">
+    <h2>Checkout Complete</h2>
+    <p>Your order has been placed successfully.</p>
+  </div>
 );
 
 export default App;
