@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 import axios from "axios";
 import Modal from "react-modal";
 import Calendar from "react-calendar";
@@ -198,9 +205,6 @@ const Portfolio = ({ galleryArray, addToCart }) => {
   );
 };
 
-
-
-
 const Events = () => (
   <main>
     <div className="main">
@@ -254,7 +258,8 @@ const Cart = ({ cartItems, removeFromCart }) => {
       return prevQuantities;
     });
   };
-
+  const location = useLocation();
+  const { pathname } = location;
   return (
     <div className="main">
       <h2>Cart</h2>
@@ -300,17 +305,27 @@ const Cart = ({ cartItems, removeFromCart }) => {
       )}
       <div className="cart-total">
         <p>Total: ${totalCost}</p>
-        <Link to="/checkout">Proceed to Checkout</Link>
+        {/* <Link to="/checkout" totalCost={totalCost}>
+          Proceed to Checkout
+        </Link> */}
+        <Link
+          to={{ pathname: "/checkout", state: { totalCost }, search: pathname }}
+        >
+          Proceed to Checkout
+        </Link>
       </div>
     </div>
   );
 };
 
 const Checkout = () => {
+  const location = useLocation();
+  const { totalCost } = location.state || {};
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [showThankYouMessage, setShowThankYouMessage] = useState(false);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -318,9 +333,8 @@ const Checkout = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Process the form data
-    // You can perform validations and submit the data to an API or perform further actions
     console.log("Form submitted:", { name, address, phoneNumber });
+    setShowThankYouMessage(true);
   };
 
   useEffect(() => {
@@ -380,6 +394,19 @@ const Checkout = () => {
           <div id="paypal-button-container"></div>
         </div>
       </div>
+      {showThankYouMessage && (
+        <div className="thank-you-message">
+          <p>
+            Your payment has been received. Your order will be processed and
+            delivered to you shortly.
+          </p>
+          <p>
+            Name: {name}, Address: {address}, Phone Number: {phoneNumber}
+          </p>
+          <p>Total: $ 1345 CAD</p>
+          <p></p>
+        </div>
+      )}
       <Modal
         isOpen={true}
         contentLabel="Thank You"

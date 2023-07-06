@@ -5,7 +5,6 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   background-image: url("./gallery.jpg");
   background-color: rgba(0, 0, 0, 0.5);
   background-size: cover;
@@ -13,19 +12,11 @@ body {
   background-position: center;
 }
 
-.app-container {
-  flex: 1;
-}
-
 header {
   background-color: lightslategrey;
   color: whitesmoke;
   padding: 20px;
   width: 100%;
-}
-
-header h1 {
-  margin: 0;
 }
 
 nav {
@@ -51,7 +42,6 @@ nav ul li a {
 }
 
 .home {
-  background-color: whitesmoke;
   color: rgb(77, 75, 75);
   padding: 20px;
   justify-content: center;
@@ -60,7 +50,6 @@ nav ul li a {
 }
 
 .about {
-  background-color: whitesmoke;
   color: rgb(77, 75, 75);
   padding: 20px;
   justify-content: center;
@@ -93,6 +82,8 @@ footer {
 footer p {
   margin: 0;
 }
+
+/* portfolio components */
 
 .portfolio-item {
   position: relative;
@@ -128,6 +119,7 @@ footer p {
   border: none;
   cursor: pointer;
 }
+ /* cart components */
 
 .cart-item {
   display: flex;
@@ -138,7 +130,7 @@ footer p {
 .cart-item img {
   width: 100px;
   height: 100px;
-  margin-right: 50px;
+  margin-right: 20px;
 }
 
 .cart-item-info {
@@ -170,7 +162,7 @@ footer p {
 
 .remove-button {
   padding: 5px;
-  margin-left: 50px;
+  margin-left: 20px;
   background-color: #f44336;
   color: white;
   border: none;
@@ -179,28 +171,23 @@ footer p {
 }
 
 .cart-total {
-  margin-top: 20px;
-  margin-right: 50px;
   display: flex;
+  justify-content: center;
   align-items: center;
+  margin-top: 20px;
 }
 
 .cart-total p {
-  margin-right: 50px;
+  margin-right: 20px;
 }
 
 .cart-total a {
   padding: 5px 10px;
-  margin-right: 50px;
   background-color: #4caf50;
   color: white;
   text-decoration: none;
   border-radius: 4px;
   cursor: pointer;
-}
-
-div > p {
-  font-weight: bold;
 }
 
 div > button {
@@ -220,21 +207,11 @@ div > button:hover {
   background-color: #95e699;
 }
 
-.remove {
-  background-color: white;
-  color: black;
-}
-.remove:hover {
-  background-color: red;
-}
 .main {
-  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 80px;
-}
-.main h2 {
-  margin: 0;
-  color: green;
-  font-size: xx-large;
 }
 
 .main img {
@@ -243,13 +220,16 @@ div > button:hover {
   margin-bottom: 10px;
 }
 
-.main h3 {
-  margin: 0;
+.main p {
+  margin-right: 20px;
+  font-size: x-large;
+  color: rgb(77, 75, 75);
 }
 
-.main p {
-  margin-right: 50px;
+.checkout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  font-size: x-large;
-  color: rgb(232, 127, 79);
 }
