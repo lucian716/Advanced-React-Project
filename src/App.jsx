@@ -69,7 +69,6 @@ const App = () => {
               />
             }
           />
-          <Route path="/artist" element={<Artist />} />
           <Route path="/events" element={<Events />} />
           <Route path="/about" element={<About />} />
           <Route
@@ -95,9 +94,6 @@ const Menu = () => (
       </li>
       <li>
         <Link to="/portfolio">Portfolio</Link>
-      </li>
-      <li>
-        <Link to="/artist">Artist</Link>
       </li>
       <li>
         <Link to="/events">Events</Link>
@@ -201,13 +197,6 @@ const Portfolio = ({ galleryArray, addToCart }) => {
     </div>
   );
 };
-
-const Artist = () => (
-  <div className="artist">
-    <h2>Artist</h2>
-    <p>Meet the creative minds behind the AI-generated art!</p>
-  </div>
-);
 
 const Events = () => (
   <main>

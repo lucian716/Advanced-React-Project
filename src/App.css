@@ -35,20 +35,21 @@ nav {
 }
 
 nav ul {
-  list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
 nav ul li {
+  list-style-type: none;
   display: inline;
   margin-right: 10px;
 }
 
 nav ul li a {
   color: slategrey;
-  text-decoration: none;
+  text-decoration: none !important;
 }
+
 .home {
   background-color: whitesmoke;
   color: rgb(77, 75, 75);
@@ -76,15 +77,6 @@ nav ul li a {
   margin-top: 30px;
   margin-bottom: 80px;
 }
-/* main {
-  color: rgb(189, 55, 55);
-  font-size: large;
-  padding: 20px;
-  justify-content: center;
-  text-align: center;
-  margin-top: 10px;
-  margin-bottom: 80px;
-} */
 
 footer {
   background-color: lightslategrey;
