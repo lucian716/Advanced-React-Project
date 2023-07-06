@@ -198,6 +198,9 @@ const Portfolio = ({ galleryArray, addToCart }) => {
   );
 };
 
+
+
+
 const Events = () => (
   <main>
     <div className="main">
